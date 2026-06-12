@@ -1,0 +1,25 @@
+name: ragdoll-language
+
+services:
+  language-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_BACKEND_API_URL: ${NEXT_PUBLIC_BACKEND_API_URL:-http://localhost:8000}
+        NEXT_PUBLIC_SERVER_BACKEND_API_URL: ${NEXT_PUBLIC_SERVER_BACKEND_API_URL:-https://iplvr.it.ntnu.no/backend}
+        NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH:-}
+        TRANSLATION_PROVIDER: ${TRANSLATION_PROVIDER:-disabled}
+        GOOGLE_TRANSLATE_API_KEY: ${GOOGLE_TRANSLATE_API_KEY:-}
+    container_name: ragdoll-language
+    environment:
+      - NODE_ENV=production
+      - PORT=3010
+      - NEXT_PUBLIC_BACKEND_API_URL=${NEXT_PUBLIC_BACKEND_API_URL:-http://localhost:8000}
+      - NEXT_PUBLIC_SERVER_BACKEND_API_URL=${NEXT_PUBLIC_SERVER_BACKEND_API_URL:-https://iplvr.it.ntnu.no/backend}
+      - NEXT_PUBLIC_BASE_PATH=${NEXT_PUBLIC_BASE_PATH:-}
+      - TRANSLATION_PROVIDER=${TRANSLATION_PROVIDER:-disabled}
+      - GOOGLE_TRANSLATE_API_KEY=${GOOGLE_TRANSLATE_API_KEY:-}
+    ports:
+      - "${LANGUAGE_APP_PORT:-3010}:3010"
+    restart: unless-stopped
